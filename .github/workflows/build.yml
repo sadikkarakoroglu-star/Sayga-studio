@@ -2,23 +2,23 @@ name: Sayga Studio APK Build
 
 on:
   push:
-    branches: [ ana, main ] # Senin branch adın neyse ona göre çalışır
+    branches: [ ana, main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4 # Güncellendi v4
+      - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5 # Güncellendi v5
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
       - name: Install Dependencies
         run: |
           sudo apt update
-          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev cmake libffi-dev libssl-dev
           pip3 install --user --upgrade buildozer cython kivy
 
       - name: Build with Buildozer
@@ -27,7 +27,7 @@ jobs:
           yes | buildozer android debug
         
       - name: Upload APK
-        uses: actions/upload-artifact@v4 # KRİTİK HATA BURADAYDI, v4 YAPILDI
+        uses: actions/upload-artifact@v4
         with:
           name: Sayga_Studio_V1_APK
           path: bin/*.apk
